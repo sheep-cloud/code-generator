@@ -145,7 +145,7 @@ public class CodeGenerator {
 		JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
 		javaModelGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
 		javaModelGeneratorConfiguration.setTargetPackage(MODEL_PACKAGE);
-		javaModelGeneratorConfiguration.addProperty(PropertyRegistry.MODEL_GENERATOR_TRIM_STRINGS, "false");// trimStrings
+		javaModelGeneratorConfiguration.addProperty(PropertyRegistry.MODEL_GENERATOR_TRIM_STRINGS, "true");// trimStrings
 		javaModelGeneratorConfiguration.addProperty(PropertyRegistry.ANY_ROOT_CLASS, BASE_PACKAGE + ".core.BaseEntity");// 指定entity层继承的父类
 		context.setJavaModelGeneratorConfiguration(javaModelGeneratorConfiguration);
 

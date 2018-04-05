@@ -8,5 +8,6 @@
 	<description>用于生成entity，dao，mapper，service，controller基础代码</description>
 	<modules>
 		<module>code-generator-javaconfig</module>
+		<module>code-generator-xml</module>
 	</modules>
 </project>
