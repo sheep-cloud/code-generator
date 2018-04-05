@@ -6,8 +6,9 @@
 	<packaging>pom</packaging>
 	<name>code-generator :: 代码生成器</name>
 	<description>用于生成entity，dao，mapper，service，controller基础代码</description>
+
 	<modules>
-		<module>code-generator-javaconfig</module>
 		<module>code-generator-xml</module>
+		<module>code-generator-javaconfig</module>
 	</modules>
 </project>
