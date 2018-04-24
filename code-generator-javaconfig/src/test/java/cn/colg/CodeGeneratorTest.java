@@ -1,5 +1,7 @@
 package cn.colg;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,17 +12,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.mybatis.generator.api.MyBatisGenerator;
-import org.mybatis.generator.config.Configuration;
-import org.mybatis.generator.config.Context;
-import org.mybatis.generator.config.JDBCConnectionConfiguration;
-import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
-import org.mybatis.generator.config.JavaModelGeneratorConfiguration;
-import org.mybatis.generator.config.JavaTypeResolverConfiguration;
-import org.mybatis.generator.config.ModelType;
-import org.mybatis.generator.config.PluginConfiguration;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.config.SqlMapGeneratorConfiguration;
-import org.mybatis.generator.config.TableConfiguration;
+import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 import com.google.common.base.CaseFormat;
@@ -36,18 +28,18 @@ import freemarker.template.TemplateExceptionHandler;
  *
  * @author colg
  */
-public class CodeGenerator {
+public class CodeGeneratorTest {
 
 	public static void main(String[] args) {
 		// genCode("表名");
 		// genCodeByCustomModelName("表名", "实体名");
-		genCode("sys_function");
+		genCode("sysuser");
 	}
 
 	private static final Log log = LogFactory.get();
 
 	/** JDBC 配置 */
-	private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/auth?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false";
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/yycg?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false";
 	private static final String JDBC_USERNAME = "root";
 	private static final String JDBC_PASSWORD = "root";
 	private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
@@ -137,16 +129,20 @@ public class CodeGenerator {
 		// Mapper插件
 		PluginConfiguration mapperPlugin = new PluginConfiguration();
 		mapperPlugin.setConfigurationType("tk.mybatis.mapper.generator.MapperPlugin");
-		mapperPlugin.addProperty("forceAnnotation", "true");// 强制生成注解
-		mapperPlugin.addProperty("mappers", MAPPER_INTERFACE_REFERENCE);// 指定dao层继承的父类
+		// 强制生成注解
+		mapperPlugin.addProperty("forceAnnotation", "true");
+		// 指定dao层继承的父类
+		mapperPlugin.addProperty("mappers", MAPPER_INTERFACE_REFERENCE);
 		context.addPluginConfiguration(mapperPlugin);
 
 		// 定义Java模型生成器的属性 - entity
 		JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
 		javaModelGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
 		javaModelGeneratorConfiguration.setTargetPackage(MODEL_PACKAGE);
-		javaModelGeneratorConfiguration.addProperty(PropertyRegistry.MODEL_GENERATOR_TRIM_STRINGS, "true");// trimStrings
-		javaModelGeneratorConfiguration.addProperty(PropertyRegistry.ANY_ROOT_CLASS, BASE_PACKAGE + ".core.BaseEntity");// 指定entity层继承的父类
+		// trimStrings
+		javaModelGeneratorConfiguration.addProperty(PropertyRegistry.MODEL_GENERATOR_TRIM_STRINGS, "true");
+		// 指定entity层继承的父类
+		javaModelGeneratorConfiguration.addProperty(PropertyRegistry.ANY_ROOT_CLASS, BASE_PACKAGE + ".core.BaseEntity");
 		context.setJavaModelGeneratorConfiguration(javaModelGeneratorConfiguration);
 
 		// 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
@@ -209,7 +205,7 @@ public class CodeGenerator {
 	 * @param modelName
 	 */
 	public static void genService(String tableName, String modelName) {
-		Map<String, Object> data = new HashMap<>();
+		Map<String, Object> data = new HashMap<>(4);
 		data.put("author", AUTHOR);
 		String modelNameUpperCamel = StrUtil.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
 		data.put("modelNameUpperCamel", modelNameUpperCamel);
@@ -245,7 +241,7 @@ public class CodeGenerator {
 	 * @param modelName
 	 */
 	public static void genController(String tableName, String modelName) {
-		Map<String, Object> data = new HashMap<>();
+		Map<String, Object> data = new HashMap<>(5);
 		data.put("author", AUTHOR);
 		String modelNameUpperCamel = StrUtil.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
 		data.put("baseRequestMapping", modelNameConvertMappingPath(modelNameUpperCamel));
@@ -307,7 +303,8 @@ public class CodeGenerator {
 	 * @return
 	 */
 	private static String tableNameConvertMappingPath(String tableName) {
-		tableName = tableName.toLowerCase();// 兼容使用大写的表名
+		// 兼容使用大写的表名
+		tableName = tableName.toLowerCase();
 		return "/" + (tableName.contains("_") ? tableName.replaceAll("_", "/") : tableName);
 	}
 
@@ -334,7 +331,6 @@ public class CodeGenerator {
 
 	@Test
 	public void asdf() {
-		System.out.println(packageConvertPath("com.arrow"));
-
+		assertEquals("/com/arrow/", packageConvertPath("com.arrow"));
 	}
 }

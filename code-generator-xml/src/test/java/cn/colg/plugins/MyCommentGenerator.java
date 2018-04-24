@@ -44,7 +44,8 @@ public class MyCommentGenerator implements CommentGenerator {
 			return;
 		}
 
-		String remarks = introspectedColumn.getRemarks();// 字段注释
+		// 字段注释
+		String remarks = introspectedColumn.getRemarks();
 		field.addJavaDocLine("/**");
 		field.addJavaDocLine(" * " + remarks);
 		field.addJavaDocLine(" */");
@@ -56,7 +57,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		boolean nullable = introspectedColumn.isNullable();
 		String fieldType = field.getType().toString();
 		StringBuffer sb = new StringBuffer();
-
+		
 		List<IntrospectedColumn> pklist = introspectedTable.getPrimaryKeyColumns();
 		boolean columnIsPkCol = false;
 		if (pklist != null && pklist.size() > 0) {
@@ -67,11 +68,11 @@ public class MyCommentGenerator implements CommentGenerator {
 				}
 			}
 		}
-
+		
 		if (columnIsPkCol) {
 			field.addAnnotation("@Id");
 		}
-
+		
 		sb.append("@Column(name = \"" + columnName + "\"");
 		if (fieldType.endsWith("String")) {
 			sb.append(", length = " + length + "");
@@ -136,8 +137,10 @@ public class MyCommentGenerator implements CommentGenerator {
 			return;
 		}
 
-		String lowerCase = introspectedColumn.getActualColumnName();// 字段名
-		String remarks = introspectedColumn.getRemarks(); // 字段注释
+		// 字段名
+		String lowerCase = introspectedColumn.getActualColumnName();
+		// 字段注释
+		String remarks = introspectedColumn.getRemarks();
 		method.addJavaDocLine("/**");
 		method.addJavaDocLine(" * 获取" + remarks);
 		method.addJavaDocLine(" *");
@@ -155,7 +158,8 @@ public class MyCommentGenerator implements CommentGenerator {
 			return;
 		}
 
-		String remarks = introspectedColumn.getRemarks(); // 字段注释
+		// 字段注释
+		String remarks = introspectedColumn.getRemarks();
 		String name = method.getParameters().get(0).getName();
 		method.addJavaDocLine("/**");
 		method.addJavaDocLine("/* 设置" + name);

@@ -6,7 +6,7 @@ import ${basePackage}.core.BaseServiceImpl;
 import ${basePackage}.service.${modelNameUpperCamel}Service;
 
 /**
- * 
+ * ServiceImpl
  *
  * @author ${author}
  */

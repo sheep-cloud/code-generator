@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ${basePackage}.core.BaseController;
 
 /**
- * 
+ * Controller
  *
  * @author ${author}
  */

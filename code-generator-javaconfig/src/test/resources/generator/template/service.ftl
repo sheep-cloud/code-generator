@@ -1,7 +1,7 @@
 package ${basePackage}.service;
 
 /**
- * 
+ * Service
  *
  * @author ${author}
  */

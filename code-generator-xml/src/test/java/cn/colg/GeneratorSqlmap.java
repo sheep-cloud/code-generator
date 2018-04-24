@@ -9,6 +9,11 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
+/**
+ * 生成实体类
+ *
+ * @author colg
+ */
 public class GeneratorSqlmap {
 
 	/**
