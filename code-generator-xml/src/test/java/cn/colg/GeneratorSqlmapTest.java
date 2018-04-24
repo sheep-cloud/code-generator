@@ -14,7 +14,12 @@ import org.mybatis.generator.internal.DefaultShellCallback;
  *
  * @author colg
  */
-public class GeneratorSqlmap {
+public class GeneratorSqlmapTest {
+
+	/**
+	 * generatorConfig.xml 路径
+	 */
+	private static final String SRC_MAIN_RESOURCES_GENERATOR_CONFIG_XML = "src/main/resources/generatorConfig.xml";
 
 	/**
 	 * 逆向生成entity、mapper
@@ -23,7 +28,7 @@ public class GeneratorSqlmap {
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
 		// 指定 逆向工程配置文件
-		File configFile = new File("src/main/resources/generatorConfig.xml");
+		File configFile = new File(SRC_MAIN_RESOURCES_GENERATOR_CONFIG_XML);
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
 		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
@@ -36,6 +41,6 @@ public class GeneratorSqlmap {
 	 * 执行
 	 */
 	public static void main(String[] args) throws Exception {
-		new GeneratorSqlmap().generator();
+		new GeneratorSqlmapTest().generator();
 	}
 }
